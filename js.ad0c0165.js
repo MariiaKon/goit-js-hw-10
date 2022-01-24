@@ -20,4 +20,4 @@ var e,t=arguments[3];!function(t,r){"object"==typeof exports&&"object"==typeof m
 },{"notiflix":"hWOm","../../node_modules/notiflix/dist/notiflix-3.2.2.min.css":"krre","../templates/country-card.hbs":"DRrH","../templates/country-list.hbs":"htiI"}],"QvaY":[function(require,module,exports) {
 "use strict";require("../css/styles.css");var e=r(require("lodash.debounce")),t=require("./fetchCountries.js");function r(e){return e&&e.__esModule?e:{default:e}}const s=300,u=document.querySelector("#search-box");let c="";u.addEventListener("input",(0,e.default)(()=>{c=u.value.trim(),(0,t.fetchCountries)(c)},300));
 },{"../css/styles.css":"krre","lodash.debounce":"PZFh","./fetchCountries.js":"irxn"}]},{},["QvaY"], null)
-//# sourceMappingURL=/parcel-project-template/js.ad0c0165.js.map
+//# sourceMappingURL=/goit-js-hw-10/js.ad0c0165.js.map
