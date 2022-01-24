@@ -1,9 +1,7 @@
-import Notiflix from 'notiflix';
+import Notiflix, { Notify } from 'notiflix';
 import '../../node_modules/notiflix/dist/notiflix-3.2.2.min.css';
 import countryCardTpl from '../templates/country-card.hbs';
 import countryListTpl from '../templates/country-list.hbs';
-
-export let countries = [];
 
 const countryList = document.querySelector('.country-list');
 const countryCard = document.querySelector('.country-info');
@@ -18,26 +16,51 @@ export function fetchCountries(name) {
     })
     .then(countryInfo => {
       if (countryInfo.status === 404) {
-        throw new Error('Oops, there is no country with that name');
+        const errorMsg = 'Oops, there is no country with that name';
+        clearPage();
+        throw new Error(errorMsg);
       }
+      return countryInfo;
+    })
+    .then(countryInfo => {
       if (countryInfo.length > 10) {
-        Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-        countryCard.innerHTML = '';
-        countryList.innerHTML = '';
-
+        notify();
+        clearPage();
         return;
       } else if (countryInfo.length > 1) {
-        const markupList = countryListTpl(countryInfo);
-        countryList.innerHTML = markupList;
-        countryCard.innerHTML = '';
+        createCounriesListMarkup(countryInfo);
+        return;
+      } else if (countryInfo[0] == undefined) {
+        clearPage();
         return;
       }
-
-      const markupCard = countryCardTpl(countryInfo);
-      countryCard.innerHTML = markupCard;
-      countryList.innerHTML = '';
+      createCountryCardMarkup(countryInfo);
     })
-    .catch(error => {
-      Notiflix.Notify.failure(`${error}`);
-    });
+    .catch(error);
+}
+
+function clearPage() {
+  countryCard.innerHTML = '';
+  countryList.innerHTML = '';
+}
+
+function createCounriesListMarkup(info) {
+  const markupList = countryListTpl(info);
+  countryList.innerHTML = markupList;
+  countryCard.innerHTML = '';
+}
+
+function createCountryCardMarkup(info) {
+  const markupCard = countryCardTpl(info);
+  countryCard.innerHTML = markupCard;
+  countryList.innerHTML = '';
+}
+
+function notify() {
+  const infoMsg = 'Too many matches found. Please enter a more specific name.';
+  Notiflix.Notify.info(infoMsg);
+}
+
+function error(errorMsg) {
+  Notiflix.Notify.failure(`${errorMsg}`);
 }
