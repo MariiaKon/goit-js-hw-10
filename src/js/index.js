@@ -1,4 +1,6 @@
 import '../css/styles.css';
+import '../css/countries.css';
+
 import debounce from 'lodash.debounce';
 import { fetchCountries } from './fetchCountries.js';
 

@@ -1,0 +1,25 @@
+.title {
+  display: flex;
+  align-items: center;
+}
+.title img {
+  display: block;
+  margin: 10px;
+}
+.country-list,
+.info {
+  padding: 0px;
+  list-style: none;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+}
+.info span,
+.info h3 {
+  display: inline;
+}
+h2 {
+  margin: 0px;
+}
